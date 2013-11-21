@@ -2,7 +2,6 @@ package com.ecfront.easybi.coveragelog.test;
 
 import com.ecfront.easybi.BaseTest;
 import com.ecfront.easybi.coveragelog.MethodScanner;
-import com.ecfront.easybi.coveragelog.repositories.ScannedMethodRepository;
 import org.junit.Test;
 
 import javax.inject.Inject;

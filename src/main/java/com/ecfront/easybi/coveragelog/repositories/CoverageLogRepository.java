@@ -1,6 +1,6 @@
 package com.ecfront.easybi.coveragelog.repositories;
 
-import com.ecfront.easybi.coveragelog.document.CoverageLog;
+import com.ecfront.easybi.coveragelog.Entity.CoverageLog;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;

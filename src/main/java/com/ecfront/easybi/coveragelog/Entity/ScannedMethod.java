@@ -1,27 +1,21 @@
-package com.ecfront.easybi.coveragelog.document;
+package com.ecfront.easybi.coveragelog.Entity;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Arrays;
 
-@Document
 public class ScannedMethod {
-    @Indexed
-    private String packageName;
-    @Indexed
-    private String className;
-    @Indexed
-    private String methodName;
-    @Indexed
-    private String[] methodParameterTypes;
+    private long code;
 
-    public ScannedMethod() {
-    }
+    private String packageName;
+    private String className;
+    private String methodName;
+    private String[] methodParameterTypes;
 
     public ScannedMethod(String packageName, String className, String methodName, String[] methodParameterTypes) {
         this.packageName = packageName;
         this.className = className;
         this.methodName = methodName;
         this.methodParameterTypes = methodParameterTypes;
+        this.code = ScannedMethod.packageCode(packageName, className, methodName, methodParameterTypes);
     }
 
     public String getPackageName() {
@@ -54,5 +48,21 @@ public class ScannedMethod {
 
     public void setMethodParameterTypes(String[] methodParameterTypes) {
         this.methodParameterTypes = methodParameterTypes;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public static long packageCode(String packageName, String className, String methodName, String[] methodParameterTypes) {
+        long result = packageName.hashCode();
+        result = 31 * result + className.hashCode();
+        result = 31 * result + methodName.hashCode();
+        result = 31 * result + Arrays.hashCode(methodParameterTypes);
+        return result;
     }
 }

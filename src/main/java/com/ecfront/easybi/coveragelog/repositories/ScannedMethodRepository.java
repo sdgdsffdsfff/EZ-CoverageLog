@@ -1,6 +1,6 @@
 package com.ecfront.easybi.coveragelog.repositories;
 
-import com.ecfront.easybi.coveragelog.document.ScannedMethod;
+import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

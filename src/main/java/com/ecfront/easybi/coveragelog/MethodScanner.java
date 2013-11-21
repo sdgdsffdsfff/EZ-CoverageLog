@@ -1,9 +1,9 @@
 package com.ecfront.easybi.coveragelog;
 
 import com.ecfront.easybi.classscanner.exchange.ClassScanner;
-import com.ecfront.easybi.coveragelog.document.ScannedMethod;
+import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
 import com.ecfront.easybi.coveragelog.repositories.ScannedMethodRepository;
-import com.ecfront.easybi.utils.springext.PropertyHelper;
+import com.ecfront.easybi.utils.PropertyHelper;
 
 import javax.inject.Inject;
 import java.lang.reflect.Method;
@@ -30,7 +30,7 @@ public class MethodScanner {
         }
     }
 
-    private String[] getMethodParameterTypes(Method method) {
+    public static String[] getMethodParameterTypes(Method method) {
         Class<?>[] reflectParameterTypes = method.getParameterTypes();
         if (null != reflectParameterTypes && reflectParameterTypes.length > 0) {
             List<String> returnParameterTypes = new ArrayList<String>();
