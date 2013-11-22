@@ -26,7 +26,7 @@ public class MethodScanner {
                     }
                 }
             }
-            scannedMethodRepository.save(scannedMethods);
+            ScannedMethodRepository.save(scannedMethods);
         }
     }
 
@@ -42,6 +42,4 @@ public class MethodScanner {
         return new String[]{};
     }
 
-    @Inject
-    private ScannedMethodRepository scannedMethodRepository;
 }

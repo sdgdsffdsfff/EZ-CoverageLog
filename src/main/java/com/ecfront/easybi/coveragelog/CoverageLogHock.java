@@ -3,7 +3,6 @@ package com.ecfront.easybi.coveragelog;
 import com.ecfront.easybi.coveragelog.Entity.CoverageLog;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import java.lang.reflect.Method;
 

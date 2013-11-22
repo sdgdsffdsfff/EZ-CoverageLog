@@ -1,11 +1,25 @@
 package com.ecfront.easybi.coveragelog.repositories;
 
-import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+public class ScannedMethodRepository {
 
-@Repository
-public interface ScannedMethodRepository extends MongoRepository<ScannedMethod, ObjectId> {
+      public void save(List<>)
 
+
+
+
+    private static volatile ScannedMethodRepository INSTANCE;
+
+    private ScannedMethodRepository() {
+    }
+
+    public static ScannedMethodRepository getInstance() {
+        if (null == INSTANCE) {
+            synchronized (ScannedMethodRepository.class) {
+                if (null == INSTANCE) {
+                    INSTANCE = new ScannedMethodRepository();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 }

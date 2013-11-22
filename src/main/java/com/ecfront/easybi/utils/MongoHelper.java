@@ -1,11 +1,12 @@
 package com.ecfront.easybi.utils;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MongoHelper {
 
@@ -42,8 +43,46 @@ public class MongoHelper {
         }
     }
 
-    public static DB getDB() {
+    public void dropDB() {
+        db.dropDatabase();
+    }
+
+    public static DB useDB() {
         return db;
+    }
+
+    public static DBCollection useCollection(String name) {
+        return db.getCollection(name);
+    }
+
+    public static DBObject get(DBObject queryObject, DBCollection collection) {
+        return collection.findOne(queryObject);
+    }
+
+    public static void insert(DBObject newObject, DBCollection collection) {
+        collection.insert(newObject);
+    }
+
+    public static void insertAll(List<DBObject> newObjects, DBCollection collection) {
+        collection.insert(newObjects);
+    }
+
+    public static void update(DBObject targetObject, DBObject newObject, DBCollection collection) {
+        collection.update(targetObject, newObject);
+    }
+
+    public static void delete(DBObject deleteObject, DBCollection collection) {
+        collection.remove(deleteObject);
+    }
+
+    public List<DBObject> pageQuery(DBObject queryObject, int offset, int limit, DBCollection collection) {
+        DBCursor cursor = collection.find(queryObject).skip(offset).limit(limit);
+        List<DBObject> objects = new ArrayList<DBObject>();
+        while (cursor.hasNext()) {
+            objects.add(cursor.next());
+        }
+        cursor.close();
+        return objects;
     }
 
 }
