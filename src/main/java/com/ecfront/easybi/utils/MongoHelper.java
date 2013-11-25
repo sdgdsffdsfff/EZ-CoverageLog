@@ -79,8 +79,12 @@ public class MongoHelper {
         collection.drop();
     }
 
-    public List<DBObject> pageQuery(DBObject queryObject, int offset, int limit, DBCollection collection) {
-        DBCursor cursor = collection.find(queryObject).skip(offset).limit(limit);
+    public static long count(DBObject queryObject, DBCollection collection){
+        return collection.find(queryObject).size();
+    }
+
+    public static List<DBObject> pageQuery(DBObject queryObject, int offset, int limit,DBObject sort, DBCollection collection) {
+        DBCursor cursor = collection.find(queryObject).skip(offset).limit(limit).sort(sort);
         List<DBObject> objects = new ArrayList<DBObject>();
         while (cursor.hasNext()) {
             objects.add(cursor.next());

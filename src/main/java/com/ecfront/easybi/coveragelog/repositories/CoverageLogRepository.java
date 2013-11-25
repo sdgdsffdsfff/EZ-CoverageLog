@@ -4,19 +4,52 @@ import com.ecfront.easybi.coveragelog.Entity.CoverageLog;
 import com.ecfront.easybi.utils.MongoHelper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 
-public class CoverageLogRepository {
+public class CoverageLogRepository extends MongoRepository<CoverageLog, Long> {
 
-    public void save(final CoverageLog object) {
-        MongoHelper.insert(new BasicDBObject() {{
-            put("code", object.getCode());
-            put("enterTime", object.getEnterTime());
-            put("finishTime", object.getFinishTime());
-            put("useTime", object.getUseTime());
-        }}, collection);
+    @Override
+    protected DBObject customConvertObject(final CoverageLog object) {
+        DBObject dbObject = new BasicDBObject();
+        if (null != object.getId()) {
+            dbObject.put("id", object.getId());
+        }
+        if (null != object.getCode()) {
+            dbObject.put("code", object.getCode());
+        }
+        if (null != object.getEnterTime()) {
+            dbObject.put("enterTime", object.getEnterTime());
+        }
+        if (null != object.getFinishTime()) {
+            dbObject.put("finishTime", object.getFinishTime());
+        }
+        if (null != object.getUseTime()) {
+            dbObject.put("useTime", object.getUseTime());
+        }
+        return dbObject;
     }
 
-    private DBCollection collection = MongoHelper.useCollection("CoverageLog");
+    @Override
+    protected CoverageLog customConvertObject(DBObject object) {
+        CoverageLog coverageLog = new CoverageLog();
+        if (object.containsField("id")) {
+            coverageLog.setId((Long) object.get("id"));
+        }
+        if (object.containsField("code")) {
+            coverageLog.setCode((Long) object.get("code"));
+        }
+        if (object.containsField("enterTime")) {
+            coverageLog.setEnterTime((Long) object.get("enterTime"));
+        }
+        if (object.containsField("finishTime")) {
+            coverageLog.setFinishTime((Long) object.get("finishTime"));
+        }
+        if (object.containsField("useTime")) {
+            coverageLog.setUseTime((Long) object.get("useTime"));
+        }
+        return coverageLog;
+    }
+
 
     private static volatile CoverageLogRepository INSTANCE;
 

@@ -1,48 +1,71 @@
 package com.ecfront.easybi.coveragelog.Entity;
 
+
+/**
+ * 方法访问信息
+ */
 public class CoverageLog {
-    private long code;
 
-    private long enterTime;
-    private long finishTime;
-    private long useTime;
+    @PK
+    private Long id;
+    //编码，每个方法的唯一编号
+    private Long code;
+    //进入方法的时间
+    private Long enterTime;
+    //完成方法的时间
+    private Long finishTime;
+    //方法使用（占用）时间
+    private Long useTime;
 
-    public CoverageLog(long code, long enterTime, long finishTime) {
+    public CoverageLog() {
+    }
+
+    public CoverageLog(Long code, Long enterTime, Long finishTime) {
+        this.id = System.nanoTime();
         this.code = code;
         this.enterTime = enterTime;
         this.finishTime = finishTime;
         this.useTime = finishTime - enterTime;
     }
 
-    public long getCode() {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 
-    public long getEnterTime() {
+    public Long getEnterTime() {
         return enterTime;
     }
 
-    public void setEnterTime(long enterTime) {
+    public void setEnterTime(Long enterTime) {
         this.enterTime = enterTime;
     }
 
-    public long getFinishTime() {
+    public Long getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(long finishTime) {
+    public void setFinishTime(Long finishTime) {
         this.finishTime = finishTime;
     }
 
-    public long getUseTime() {
+    public Long getUseTime() {
         return useTime;
     }
 
-    public void setUseTime(long useTime) {
+    public void setUseTime(Long useTime) {
         this.useTime = useTime;
     }
 }

@@ -1,35 +1,60 @@
 package com.ecfront.easybi.coveragelog.repositories;
 
 import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
-import com.ecfront.easybi.utils.MongoHelper;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ScannedMethodRepository extends MongoRepository<ScannedMethod, Long> {
 
-public class ScannedMethodRepository {
-
-    public void saveAll(List<ScannedMethod> objects) {
-        List<DBObject> dbObjects = new ArrayList<DBObject>();
-        for (final ScannedMethod object : objects) {
-            dbObjects.add(new BasicDBObject() {{
-                put("code", object.getCode());
-                put("packageName", object.getPackageName());
-                put("className", object.getClassName());
-                put("methodName", object.getMethodName());
-                put("methodParameterType", object.getMethodParameterTypes());
-            }});
+    @Override
+    protected DBObject customConvertObject(final ScannedMethod object) {
+        DBObject dbObject = new BasicDBObject();
+        if (null != object.getId()) {
+            dbObject.put("id", object.getId());
         }
-        MongoHelper.insertAll(dbObjects, collection);
+        if (null != object.getCode()) {
+            dbObject.put("code", object.getCode());
+        }
+        if (null != object.getPackageName()) {
+            dbObject.put("packageName", object.getPackageName());
+        }
+        if (null != object.getClassName()) {
+            dbObject.put("className", object.getClassName());
+        }
+        if (null != object.getMethodName()) {
+            dbObject.put("methodName", object.getMethodName());
+        }
+        if (null != object.getMethodParameterTypes()) {
+            dbObject.put("methodParameterType", object.getMethodParameterTypes());
+        }
+        return dbObject;
     }
 
-    public void drop() {
-        MongoHelper.drop(collection);
+    @Override
+    protected ScannedMethod customConvertObject(DBObject object) {
+        ScannedMethod scannedMethod = new ScannedMethod();
+        if (object.containsField("id")) {
+            scannedMethod.setId((Long) object.get("id"));
+        }
+        if (object.containsField("code")) {
+            scannedMethod.setCode((Long) object.get("code"));
+        }
+        if (object.containsField("packageName")) {
+            scannedMethod.setPackageName(object.get("packageName").toString());
+        }
+        if (object.containsField("className")) {
+            scannedMethod.setClassName(object.get("className").toString());
+        }
+        if (object.containsField("methodName")) {
+            scannedMethod.setMethodName(object.get("methodName").toString());
+        }
+        if (object.containsField("methodParameterType")) {
+            BasicDBList basicDBList= (BasicDBList) object.get("methodParameterType");
+            scannedMethod.setMethodParameterTypes(basicDBList.toArray(new String[basicDBList.size()]));
+        }
+        return scannedMethod;
     }
-
-    private DBCollection collection = MongoHelper.useCollection("ScannedMethod");
 
     private static volatile ScannedMethodRepository INSTANCE;
 
@@ -46,5 +71,6 @@ public class ScannedMethodRepository {
         }
         return INSTANCE;
     }
+
 
 }

@@ -30,7 +30,7 @@ public class MethodScanner {
                 }
             }
             ScannedMethodRepository.getInstance().drop();
-            ScannedMethodRepository.getInstance().saveAll(scannedMethods);
+            ScannedMethodRepository.getInstance().save(scannedMethods);
         }
     }
 
