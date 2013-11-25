@@ -20,12 +20,12 @@ public abstract class MongoRepository<T,E> {
 
     }
 
-    public void get(E id){
-
+    public E get(E id){
+          return null;
     }
 
-    public void find(T queryObject,int pageNumber,int pageSize,){
-
+    public List<E> find(T queryObject,int pageNumber,int pageSize){
+          return null;
     }
 
 }

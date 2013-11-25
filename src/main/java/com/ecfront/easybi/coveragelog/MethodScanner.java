@@ -5,7 +5,6 @@ import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
 import com.ecfront.easybi.coveragelog.repositories.ScannedMethodRepository;
 import com.ecfront.easybi.utils.PropertyHelper;
 
-import javax.inject.Inject;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class MethodScanner {
                     }
                 }
             }
-            ScannedMethodRepository.save(scannedMethods);
+            ScannedMethodRepository.getInstance().saveAll(scannedMethods);
         }
     }
 
@@ -40,6 +39,22 @@ public class MethodScanner {
             return returnParameterTypes.toArray(new String[returnParameterTypes.size()]);
         }
         return new String[]{};
+    }
+
+    private static volatile MethodScanner INSTANCE;
+
+    private MethodScanner() {
+    }
+
+    public static MethodScanner getInstance() {
+        if (null == INSTANCE) {
+            synchronized (MethodScanner.class) {
+                if (null == INSTANCE) {
+                    INSTANCE = new MethodScanner();
+                }
+            }
+        }
+        return INSTANCE;
     }
 
 }

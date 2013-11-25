@@ -7,6 +7,11 @@ public class CoverageLog {
     private long finishTime;
     private long useTime;
 
+    public CoverageLog(long code, long enterTime) {
+        this.code = code;
+        this.enterTime = enterTime;
+    }
+
     public long getCode() {
         return code;
     }

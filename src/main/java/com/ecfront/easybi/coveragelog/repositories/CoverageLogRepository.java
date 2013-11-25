@@ -1,16 +1,36 @@
 package com.ecfront.easybi.coveragelog.repositories;
 
 import com.ecfront.easybi.coveragelog.Entity.CoverageLog;
-import org.bson.types.ObjectId;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import com.ecfront.easybi.utils.MongoHelper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 
-import java.util.List;
+public class CoverageLogRepository {
 
-@Repository
-public interface CoverageLogRepository extends MongoRepository<CoverageLog, ObjectId> {
+    public void save(final CoverageLog object) {
+        MongoHelper.insert(new BasicDBObject() {{
+            put("code", object.getCode());
+            put("enterTime", object.getEnterTime());
+            put("finishTime", object.getFinishTime());
+            put("useTime", object.getUseTime());
+        }}, collection);
+    }
 
-    public List<CoverageLog> findByClazzAndMethodAndEnterTimeGreaterThanAndFinishTimeLessThanOrderByUseTimeDesc(String clazz,String method,long enterTime,long finishTime, Pageable page);
+    private DBCollection collection = MongoHelper.useCollection("CoverageLog");
 
+    private static volatile CoverageLogRepository INSTANCE;
+
+    private CoverageLogRepository() {
+    }
+
+    public static CoverageLogRepository getInstance() {
+        if (null == INSTANCE) {
+            synchronized (CoverageLogRepository.class) {
+                if (null == INSTANCE) {
+                    INSTANCE = new CoverageLogRepository();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 }
