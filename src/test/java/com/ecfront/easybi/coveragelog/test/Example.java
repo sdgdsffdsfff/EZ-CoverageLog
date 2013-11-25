@@ -3,9 +3,10 @@ package com.ecfront.easybi.coveragelog.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Example {
-
 
     public void test1() {
         logger.debug("test1");
@@ -16,4 +17,5 @@ public class Example {
     }
 
     private static final Logger logger = LoggerFactory.getLogger(Example.class);
+
 }

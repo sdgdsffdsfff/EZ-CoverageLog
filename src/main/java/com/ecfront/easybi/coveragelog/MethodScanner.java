@@ -4,14 +4,18 @@ import com.ecfront.easybi.classscanner.exchange.ClassScanner;
 import com.ecfront.easybi.coveragelog.Entity.ScannedMethod;
 import com.ecfront.easybi.coveragelog.repositories.ScannedMethodRepository;
 import com.ecfront.easybi.utils.PropertyHelper;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class MethodScanner {
 
+    @PostConstruct
     public void scan() throws Exception {
         Set<Class<?>> classes = ClassScanner.scan(PropertyHelper.get("method.scan"));
         if (null != classes && classes.size() > 0) {
@@ -25,6 +29,7 @@ public class MethodScanner {
                     }
                 }
             }
+            ScannedMethodRepository.getInstance().drop();
             ScannedMethodRepository.getInstance().saveAll(scannedMethods);
         }
     }
@@ -39,22 +44,6 @@ public class MethodScanner {
             return returnParameterTypes.toArray(new String[returnParameterTypes.size()]);
         }
         return new String[]{};
-    }
-
-    private static volatile MethodScanner INSTANCE;
-
-    private MethodScanner() {
-    }
-
-    public static MethodScanner getInstance() {
-        if (null == INSTANCE) {
-            synchronized (MethodScanner.class) {
-                if (null == INSTANCE) {
-                    INSTANCE = new MethodScanner();
-                }
-            }
-        }
-        return INSTANCE;
     }
 
 }

@@ -75,6 +75,10 @@ public class MongoHelper {
         collection.remove(deleteObject);
     }
 
+    public static void drop(DBCollection collection) {
+        collection.drop();
+    }
+
     public List<DBObject> pageQuery(DBObject queryObject, int offset, int limit, DBCollection collection) {
         DBCursor cursor = collection.find(queryObject).skip(offset).limit(limit);
         List<DBObject> objects = new ArrayList<DBObject>();
@@ -84,5 +88,6 @@ public class MongoHelper {
         cursor.close();
         return objects;
     }
+
 
 }

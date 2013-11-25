@@ -25,6 +25,9 @@ public class ScannedMethodRepository {
         MongoHelper.insertAll(dbObjects, collection);
     }
 
+    public void drop() {
+        MongoHelper.drop(collection);
+    }
 
     private DBCollection collection = MongoHelper.useCollection("ScannedMethod");
 
@@ -43,4 +46,5 @@ public class ScannedMethodRepository {
         }
         return INSTANCE;
     }
+
 }

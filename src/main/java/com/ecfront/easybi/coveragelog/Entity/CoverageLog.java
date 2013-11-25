@@ -7,9 +7,11 @@ public class CoverageLog {
     private long finishTime;
     private long useTime;
 
-    public CoverageLog(long code, long enterTime) {
+    public CoverageLog(long code, long enterTime, long finishTime) {
         this.code = code;
         this.enterTime = enterTime;
+        this.finishTime = finishTime;
+        this.useTime = finishTime - enterTime;
     }
 
     public long getCode() {
@@ -34,7 +36,6 @@ public class CoverageLog {
 
     public void setFinishTime(long finishTime) {
         this.finishTime = finishTime;
-        this.useTime = finishTime - enterTime;
     }
 
     public long getUseTime() {
